@@ -1,0 +1,11 @@
+Jeg håber du vil nyde denne lille app. Den skal hjælpe dig med at holde styr på dine dage, og hvad du har lavet.
+
+Du kan gemme dit humør, ting du vil huske, og særlige begivenheder.
+
+De bliver gemt under dato.
+
+Du kan bruge den til at huske din dag, eller du kan se om der er noget du skal gøre.
+
+Det er en gratis app uden reklamer, ingen notifikationer, ingen snyd der vil hente penge ud af dig.
+
+Udviklet af Jens Barfred, copyright e-lector.dk
