@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
 
 class InfoSide extends StatefulWidget {
   final DateTime dato;
@@ -24,6 +26,21 @@ class _InfoSideState extends State<InfoSide> {
     setState(() {
       tekstFraFil = tekst;
     });
+  }
+
+  // ⭐ Eksportfunktion
+  Future<void> eksportTilDownloads() async {
+    final dir = await getDownloadsDirectory(); // Android 10+ virker
+    final fil = File("${dir!.path}/mindag_export.txt");
+
+    await fil.writeAsString(tekstFraFil);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Fil eksporteret til: ${fil.path}"),
+        backgroundColor: Colors.green,
+      ),
+    );
   }
 
   @override
@@ -59,6 +76,11 @@ class _InfoSideState extends State<InfoSide> {
                 ),
               ),
             ),
+
+            const SizedBox(height: 20),
+
+            // ⭐ Eksport-knap nederst
+            // ,
           ],
         ),
       ),

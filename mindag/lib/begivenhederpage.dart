@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'dart:convert';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
 
 class BegivenhederPage extends StatefulWidget {
-  final DateTime? dato; // ⭐ valgfri dato, så både constructor og route virker
+  final DateTime? dato; // ⭐ valgfri dato
 
   const BegivenhederPage({super.key, this.dato});
 
@@ -32,7 +35,7 @@ class _BegivenhederPageState extends State<BegivenhederPage> {
     // ⭐ Lav nøgle
     key = "${dato.year}-${dato.month}-${dato.day}";
 
-    // ⭐ Hent gemte begivenheder (kun én gang)
+    // ⭐ Hent gemte begivenheder
     final box = Hive.box('begivenheder');
     final gemt = box.get(key);
 
@@ -45,6 +48,27 @@ class _BegivenhederPageState extends State<BegivenhederPage> {
   void gemBegivenheder() {
     final box = Hive.box('begivenheder');
     box.put(key, begivenheder);
+  }
+
+  // ⭐ EKSPORTÉR ALLE BEGIVENHEDER (hele Hive-boxen)
+  Future<void> eksportAlleBegivenheder() async {
+    final box = Hive.box('begivenheder');
+
+    // Konverter hele boxen til JSON
+    final data = jsonEncode(box.toMap());
+
+    // Gem i Downloads (synlig for brugeren)
+    final downloads = await getDownloadsDirectory();
+    final fil = File("${downloads!.path}/mindag_begivenheder.json");
+
+    await fil.writeAsString(data);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Eksporteret til: ${fil.path}"),
+        backgroundColor: Colors.green,
+      ),
+    );
   }
 
   @override
@@ -141,6 +165,27 @@ class _BegivenhederPageState extends State<BegivenhederPage> {
                         );
                       },
                     ),
+            ),
+
+            const SizedBox(height: 20),
+
+            // ⭐ EKSPORT-KNAP NEDERST
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF8BC34A),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                ),
+                onPressed: eksportAlleBegivenheder,
+                child: const Text(
+                  "Eksportér alle begivenheder",
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                ),
+              ),
             ),
           ],
         ),
