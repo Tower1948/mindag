@@ -27,7 +27,7 @@ class _HuskelistePageState extends State<HuskelistePage> {
     "Set TV og læst nyheder": false,
     "Spillet et spil eller løst en gåde eller krydsord": false,
     "Støvsuget": false,
-    "Til koncert": false,
+    "Vasket gulv": false,
     "På museum": false,
     "På cafe": false,
     "Haft en god oplevelse": false,

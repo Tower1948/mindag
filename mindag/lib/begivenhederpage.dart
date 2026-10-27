@@ -142,6 +142,7 @@ class _BegivenhederPageState extends State<BegivenhederPage> {
             ),
 
             const SizedBox(height: 20),
+            
 
             // ⭐ Liste over begivenheder
             Expanded(
@@ -175,7 +176,7 @@ class _BegivenhederPageState extends State<BegivenhederPage> {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF8BC34A),
-                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  padding: const EdgeInsets.symmetric(vertical: 12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),
@@ -183,7 +184,7 @@ class _BegivenhederPageState extends State<BegivenhederPage> {
                 onPressed: eksportAlleBegivenheder,
                 child: const Text(
                   "Eksportér alle begivenheder",
-                  style: TextStyle(fontSize: 20, color: Colors.white),
+                  style: TextStyle(fontSize: 14, color: Colors.white),
                 ),
               ),
             ),
